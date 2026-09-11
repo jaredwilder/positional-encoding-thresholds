@@ -1,6 +1,6 @@
 # Sharp positional-encoding thresholds
 
-**A 79-card theorem bank on exact thresholds for positional and sparse integer encoding, with matched upper/lower bounds and independent exhaustive checks of the two central cutoff theorems. 63 cards contain proof bodies.**
+**A 79-card theorem bank on exact thresholds for positional and sparse integer encoding, with matched upper/lower bounds, independent exhaustive checks of the two central cutoff theorems, and a universal additive obstruction for fixed digit alphabets. 63 cards contain proof bodies.**
 
 Author: Jared Wilder. First public timestamp: 2026-09-11.
 
@@ -27,6 +27,18 @@ Hence the least integer base is exactly
 `Phi_B(r)=0` implies `r=0` for every vector in the cube **if and only if `B>A`**.
 
 Both thresholds were independently exhaustively checked during the release for `A in {1,2,3}`, `m in {2,3}`, and bases straddling the predicted boundary: **46 cases, zero mismatches**.
+
+## A universal Sidon obstruction
+
+There is also an exact negative theorem that no choice of large base can evade. For any base `B>=2` and any two digits `a<b`,
+
+`(aB+a)+(bB+b)=(aB+b)+(bB+a)`.
+
+Thus the four distinct words `aa,ab,ba,bb` contain an additive collision. **No fixed digit alphabet with at least two digits can make all two-digit positional words Sidon in any base.**
+
+The complete statement and proof are in [`SIDON-DIGIT-OBSTRUCTION.md`](SIDON-DIGIT-OBSTRUCTION.md).
+
+This sharply separates two phenomena: sufficiently large positional weights give unique decoding of bounded coefficient vectors, while unrestricted two-digit word families over a repeated alphabet always contain an additive rectangle.
 
 ## Optimal coefficient size
 
@@ -68,7 +80,7 @@ This repository is the ordinary mathematical home for the encoding thresholds; t
 
 ## Evidence and literature status
 
-Of the 79 cards, 63 contain proof bodies. The two central cutoff theorems also have independent finite boundary checks as described above.
+Of the 79 cards, 63 contain proof bodies. The two central cutoff theorems also have independent finite boundary checks as described above. The Sidon obstruction has a one-line general proof and was additionally regression-checked across small bases during the release audit.
 
 Several positional-representation statements are classical or elementary rediscoveries, and this repository makes no blanket novelty claim for them. That literature status does not affect the exactness of the statements or the usefulness of the sharp thresholds.
 
