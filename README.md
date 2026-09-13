@@ -70,6 +70,12 @@ The bank also records higher-dimensional sparse analogues:
 
 The sparse exponent closures and matched growth bounds are the most structurally interesting part of the bank beyond the elementary full-cube threshold.
 
+The [signed sparse theorem and complete proof](signed-sparse/THEOREM.md) now
+make the `Theta_s(m^s)` result explicit, including the exact counting lower
+bound, charge-shift construction, and classical Bose–Chowla dependency.
+An independent replay checked 2,328 cyclic input sets and 20,252 signed
+states, plus a larger support-three example and an unshifted negative control.
+
 ## Relationship to the Lean finisher work
 
 A related **63-theorem finisher ledger** uses the two cutoff lemmas as ingredients and is published under

@@ -1,0 +1,41 @@
+{
+  "result": "PASS",
+  "scope": "Finite independent replay; the all-parameter proof is in THEOREM.md",
+  "exhaustive_ranges": {
+    "N": [
+      2,
+      11
+    ],
+    "m": "1..min(4,N)",
+    "s": [
+      1,
+      2,
+      3
+    ]
+  },
+  "cyclic_bs_sets_checked": 2328,
+  "signed_states_checked": 20252,
+  "accepted_sets_by_s": {
+    "1": 1572,
+    "2": 504,
+    "3": 252
+  },
+  "non_bs_sets_rejected": 2388,
+  "negative_control": {
+    "unshifted_collision": "1 = -1 + 2",
+    "shifted_distinct_states": 9
+  },
+  "additional_example": {
+    "N": 40,
+    "s": 3,
+    "residues": [
+      0,
+      1,
+      4,
+      13
+    ],
+    "distinct_signed_states": 65
+  },
+  "checker_sha256": "cc2546f2792c9253706d5779fe23097684e37a4d5bf0545f2dbd6f20ff746ceb",
+  "date": "2026-09-13"
+}
