@@ -1,97 +1,85 @@
 # Sharp positional-encoding thresholds
 
-**A 79-card theorem bank on exact thresholds for positional and sparse integer encoding, with matched upper/lower bounds, independent exhaustive checks of the two central cutoff theorems, and a universal additive obstruction for fixed digit alphabets. 63 cards contain proof bodies.**
-
-Author: Jared Wilder. First public timestamp: 2026-09-11.
-
-The core results are exact finite arithmetic statements. Much of the basic positional material is classical or rediscovered; historical novelty is therefore treated separately from the mathematical sharpness of the thresholds.
-
-## Two exact cutoff theorems
-
 For
 
-`Phi_B(r)=sum_j r_j B^j`
+\[
+\Phi_B(r)=\sum_j r_j B^j
+\]
 
-on integer vectors `r in [-A,A]^m` with `m>=2`:
+on bounded integer coefficient vectors, this repository gives exact base thresholds for injectivity and zero detection, together with sparse analogues and an additive obstruction for repeated digit alphabets.
+
+## Exact full-cube thresholds
+
+Let `r∈[-A,A]^m` with `m>=2`.
 
 ### Injectivity
 
-`Phi_B` is injective on the full cube **if and only if `B>2A`**.
+\[
+\boxed{\Phi_B\text{ is injective on }[-A,A]^m\iff B>2A.}
+\]
 
-Hence the least integer base is exactly
+Hence the least integer base giving unique encoding of the full cube is exactly
 
-`2A+1`.
+\[
+\boxed{2A+1}.
+\]
 
 ### Zero detection
 
-`Phi_B(r)=0` implies `r=0` for every vector in the cube **if and only if `B>A`**.
+\[
+\boxed{\Phi_B(r)=0\Rightarrow r=0\text{ for all }r\in[-A,A]^m\iff B>A.}
+\]
 
-Both thresholds were independently exhaustively checked during the release for `A in {1,2,3}`, `m in {2,3}`, and bases straddling the predicted boundary: **46 cases, zero mismatches**.
-
-## A universal Sidon obstruction
-
-There is also an exact negative theorem that no choice of large base can evade. For any base `B>=2` and any two digits `a<b`,
-
-`(aB+a)+(bB+b)=(aB+b)+(bB+a)`.
-
-Thus the four distinct words `aa,ab,ba,bb` contain an additive collision. **No fixed digit alphabet with at least two digits can make all two-digit positional words Sidon in any base.**
-
-The complete statement and proof are in [`SIDON-DIGIT-OBSTRUCTION.md`](SIDON-DIGIT-OBSTRUCTION.md).
-
-This sharply separates two phenomena: sufficiently large positional weights give unique decoding of bounded coefficient vectors, while unrestricted two-digit word families over a repeated alphabet always contain an additive rectangle.
+The boundary failures have explicit two-coordinate carry witnesses. Independent exhaustive checks over small `A`, dimensions, and bases straddling the cutoffs found zero mismatches.
 
 ## Optimal coefficient size
 
-If an integer linear scalarization
+If an integer scalarization `x↦w·x` is injective on `[-A,A]^m`, counting outputs gives
 
-`x -> w.x`
-
-is injective on `[-A,A]^m`, then counting possible outputs gives
-
-`||w||_1 >= ((2A+1)^m - 1)/(2A)`.
+\[
+\|w\|_1\ge \frac{(2A+1)^m-1}{2A}.
+\]
 
 Balanced positional weights
 
-`(1,q,...,q^(m-1))`, with `q=2A+1`,
+\[
+(1,q,\ldots,q^{m-1}),\qquad q=2A+1,
+\]
 
-attain the minimum possible output span and coefficient `l1` norm on the full cube.
+attain the minimum possible output span and `\ell_1` coefficient norm on the full cube.
 
-Thus the elementary counting lower bound is paired with an explicit attaining construction.
+## A universal two-digit Sidon obstruction
+
+Large base does not cure every additive collision. For any `B>=2` and any two digits `a<b`,
+
+\[
+(aB+a)+(bB+b)=(aB+b)+(bB+a).
+\]
+
+Thus the four distinct two-digit words `aa,ab,ba,bb` always contain an additive rectangle. No fixed alphabet with at least two digits can make the complete family of two-digit positional words Sidon, regardless of the base.
+
+See [`SIDON-DIGIT-OBSTRUCTION.md`](SIDON-DIGIT-OBSTRUCTION.md).
 
 ## Sparse encoding
 
-The bank also records higher-dimensional sparse analogues:
+The repository also develops sparse analogues:
 
-- any positive-weight scalar encoding of every vector in `{-1,0,1}^m` with support at most two requires `max_i w_i >= m^2/2`;
-- the optimal largest-weight growth for support two is `Theta(m^2)`;
-- more generally `W(m,s)=Theta_s(m^s)` for fixed sparsity `s`;
-- moment encoding has an explicit sufficient base threshold `B>4Asm^(2s-1)`;
-- over a finite field, if `p>max(m,2A)`, the first `2s` Vandermonde syndromes determine every `s`-sparse integer vector in the stated range.
+- support-two signed encodings require largest weight `Ω(m²)` and admit `O(m²)` constructions;
+- more generally, for fixed sparsity `s`, the optimal scale is
 
-The sparse exponent closures and matched growth bounds are the most structurally interesting part of the bank beyond the elementary full-cube threshold.
+  \[
+  \boxed{W(m,s)=\Theta_s(m^s)};
+  \]
 
-The [signed sparse theorem and complete proof](signed-sparse/THEOREM.md) now
-make the `Theta_s(m^s)` result explicit, including the exact counting lower
-bound, charge-shift construction, and classical Bose–Chowla dependency.
-An independent replay checked 2,328 cyclic input sets and 20,252 signed
-states, plus a larger support-three example and an unshifted negative control.
+- moment encoding has an explicit sufficient base bound `B>4Asm^(2s-1)`;
+- over a finite field with `p>max(m,2A)`, the first `2s` Vandermonde syndromes determine every `s`-sparse integer vector in the stated range.
 
-## Relationship to the Lean finisher work
+The complete signed-sparse proof is in [`signed-sparse/THEOREM.md`](signed-sparse/THEOREM.md).
 
-A related **63-theorem finisher ledger** uses the two cutoff lemmas as ingredients and is published under
+## Verification
 
-`jaredwilder/lean-contributions/humu-finisher/ledger`.
+The source collection contains 79 theorem cards, 63 with proof bodies. The two central full-cube thresholds and the Sidon obstruction also have independent finite regression checks.
 
-This repository is the ordinary mathematical home for the encoding thresholds; the Lean project records a separate formal/application layer.
+Related Lean/application work lives in [`jaredwilder/lean-contributions/humu-finisher`](https://github.com/jaredwilder/lean-contributions/tree/main/humu-finisher).
 
-## Evidence and literature status
-
-Of the 79 cards, 63 contain proof bodies. The two central cutoff theorems also have independent finite boundary checks as described above. The Sidon obstruction has a one-line general proof and was additionally regression-checked across small bases during the release audit.
-
-Several positional-representation statements are classical or elementary rediscoveries, and this repository makes no blanket novelty claim for them. That literature status does not affect the exactness of the statements or the usefulness of the sharp thresholds.
-
-No blanket proof-assistant certification is claimed for this theorem bank.
-
-## License
-
-Apache-2.0.
+Author: Jared Wilder. License: Apache-2.0.
